@@ -1,0 +1,4 @@
+- name: exec pre req playbook
+  hosts: docker
+  roles:
+   - pre-docker
