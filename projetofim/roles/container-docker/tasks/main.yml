@@ -1,0 +1,10 @@
+---
+# tasks file for container-docker
+
+- name: criando os volumes do docker
+  docker_volumes:
+   name: "{{item}}"
+   state: present
+  with_items:
+   - blue
+   - green

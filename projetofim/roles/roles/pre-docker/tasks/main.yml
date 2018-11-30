@@ -1,0 +1,21 @@
+---
+# tasks file for pre-docker
+#
+- name: Instalando PreReqs
+  package:
+   name:
+    - docker-ce
+    - ngix
+    - python-pip
+
+-name: instalando o docker-py
+ pip:
+  name: docker-py
+
+- name: garantindo os servicos nginx e docker running
+  service:
+    name: "{{item}}"
+    state: started
+  with_items:
+    - nginx
+    - docker

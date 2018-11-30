@@ -1,0 +1,36 @@
+---
+# tasks file for deploy-bluegreen
+#
+
+- name: Verificando o container que esta no ar
+  stat:
+   path: /etc/nginx/sites-enabled/green.conf
+  register: vhost
+
+- name: copiando o site blue
+  copy:
+   src: "{{jenkinsdir}}/deploy/index.html"
+   dest: "{{dockerdir}}/blue/_data/index.html"
+  when: vhost.stat.exists == True
+
+- name: Copiando o site green
+  copy:
+   src: "{{jenkinsdir}}/deploy/index.html"
+   dest: "{{dockerdir}}/green/_data/index.html"
+  when: vhost.stat.exists == False
+
+
+- name: pegando IP do Container Green
+  shell: "docker exec green hostname -I"
+  register: ipgreen #armazenar resultado na variavel
+  when: vhost.stat.exists == False
+
+- name: pegando o IP do Container Blue
+  shell: "docker exec blue hostname -I"
+  register: ipblue
+  when: vhost.stat.exists == True
+
+
+ 
+
+
