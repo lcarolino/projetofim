@@ -5,12 +5,12 @@
   package:
    name:
     - docker-ce
-    - ngix
+    - nginx
     - python-pip
 
--name: instalando o docker-py
- pip:
-  name: docker-py
+- name: instalando o docker-py
+  pip:
+   name: docker-py
 
 - name: garantindo os servicos nginx e docker running
   service:
